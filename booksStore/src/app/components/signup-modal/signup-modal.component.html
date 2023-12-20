@@ -1,0 +1,63 @@
+<section class="modal-wraper" (click)="anyClick($event)">
+    <div class="modal-body">
+        <!-- <div class="up-row">
+            <h2>{{title}}</h2>
+        </div> -->
+        
+        <form [formGroup]="signupForm" (submit)="submitForm()">
+            <div class="row">
+                <div class="col">
+                    <label for="firstName">First name</label>
+                </div>
+                <div class="col expandCol">
+                    <input id="firstName" type="text" required formControlName="firstName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="lastName">Last name</label>
+                </div>
+                <div class="col expandCol">
+                    <input id="lastName" type="text" required formControlName="lastName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col expandCol">
+                    <input id="email" type="text" required formControlName="email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="password">Password</label>
+                </div>
+                <div class="col expandCol">
+                    <input id="password" type="text" required formControlName="password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="confirmPassword">Confirm Password</label>
+                </div>
+                <div class="col expandCol">
+                    <input id="confirmPassword" type="text" required formControlName="confirmPassword">
+                </div>
+            </div>
+            <div class="btn-row">
+                <div class="btnSend" (click)="ok()">
+                    <p>create new account</p>
+                    <app-send-icon></app-send-icon>
+                </div>
+            </div>
+            <div class="btn-row">
+                <div class="btnSend" (click)="ok()">
+                    <p>already registered? login</p>
+                    <app-login-icon></app-login-icon>
+                </div>
+            </div>
+        </form>
+        <!-- <button type="submit" (click)="ok()">OK</button> -->
+    </div>
+</section>
