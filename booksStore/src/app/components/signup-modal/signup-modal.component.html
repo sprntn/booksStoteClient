@@ -4,13 +4,13 @@
             <h2>{{title}}</h2>
         </div> -->
         
-        <form [formGroup]="signupForm" (submit)="submitForm()">
+        <form  id="mytest1"[formGroup]="signupForm">
             <div class="row">
                 <div class="col">
                     <label for="firstName">First name</label>
                 </div>
                 <div class="col expandCol">
-                    <input id="firstName" type="text" required formControlName="firstName">
+                    <input id="firstName" type="text" formControlName="firstName" [class.hasError]="firstName?.invalid">
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                     <label for="lastName">Last name</label>
                 </div>
                 <div class="col expandCol">
-                    <input id="lastName" type="text" required formControlName="lastName">
+                    <input id="lastName" type="text" formControlName="lastName" [class.hasError]="lastName?.invalid">
                 </div>
             </div>
             <div class="row">
@@ -26,15 +26,17 @@
                     <label for="email">Email</label>
                 </div>
                 <div class="col expandCol">
-                    <input id="email" type="text" required formControlName="email">
+                    <input id="email" type="text" formControlName="email" [class.hasError]="email?.invalid">
+                    <!-- <input id="email" type="text" required formControlName="email"> -->
                 </div>
+                <!-- <p>That is not a valid email</p> -->
             </div>
             <div class="row">
                 <div class="col">
                     <label for="password">Password</label>
                 </div>
                 <div class="col expandCol">
-                    <input id="password" type="text" required formControlName="password">
+                    <input id="password" type="text" formControlName="password" [class.hasError]="password?.invalid">
                 </div>
             </div>
             <div class="row">
@@ -42,22 +44,26 @@
                     <label for="confirmPassword">Confirm Password</label>
                 </div>
                 <div class="col expandCol">
-                    <input id="confirmPassword" type="text" required formControlName="confirmPassword">
+                    <input id="confirmPassword" type="text" formControlName="confirmPassword" [class.hasError]="confirmPassword?.invalid">
                 </div>
             </div>
             <div class="btn-row">
-                <div class="btnSend" (click)="ok()">
+                <div class="btnSend" (click)="submitForm()">
                     <p>create new account</p>
                     <app-send-icon></app-send-icon>
                 </div>
             </div>
             <div class="btn-row">
-                <div class="btnSend" (click)="ok()">
+                <div class="btnSend" (click)="openLogin()">
                     <p>already registered? login</p>
                     <app-login-icon></app-login-icon>
                 </div>
             </div>
         </form>
-        <!-- <button type="submit" (click)="ok()">OK</button> -->
+        @if(message != undefined){
+            <div class="msgRow">
+                <p [ngClass]="isSuccess == true? 'success' : 'failure'">{{message}}</p>
+            </div>
+        }
     </div>
 </section>

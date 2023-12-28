@@ -60,13 +60,8 @@ main{
         width: 80%;
         background-image: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
         border-radius: 1.5rem;
-        //padding-top: 3rem;
         padding: 2rem 0 2rem 0;;
         font-family: 'Oswald', sans-serif;
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: space-evenly;
-        // gap: 100px;
 
         form{
             display: flex;
@@ -103,6 +98,12 @@ main{
                 border-radius: .5rem;
                 outline: none;
                 background: transparent;
+
+                &.hasError{
+                    //background-color: red;
+                    background-color: rgba(255,0,0,.15);
+                    border-color: red;
+                }
             }
 
             // input:hover{
@@ -151,6 +152,8 @@ main{
                 // padding-left: 2rem;
                 // padding-right: 2rem;
 
+                font-size: 2rem;
+
                 p{
                     text-align: center;
                     margin: 0;
@@ -160,6 +163,25 @@ main{
                     width: 3rem;
                     height: 3rem;
                 }
+            }
+        }
+
+        .msgRow{
+            &.noMsgHeight{
+                height: 0;
+            }
+            &msgHeight{
+                height: 400px;
+            }
+            transition: height 3s linear;
+            p{
+                &.failure{
+                    color: rgb(81, 5, 5);
+                }
+                &.success{
+                    color: rgb(5, 69, 5);
+                }
+                font-size: 1rem;
             }
         }
     }
