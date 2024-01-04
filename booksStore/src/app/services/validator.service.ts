@@ -20,6 +20,9 @@ export class ValidatorService {
 
   isStrengthPassword(){
     return (control:AbstractControl) : ValidationErrors | null =>{
+      //test
+      //return {passwordStrengthError:true};
+
       const password = control.value;
 
       const hasCapitalLetter = /[A-Z]/.test(password);
@@ -27,9 +30,17 @@ export class ValidatorService {
       const hasDigit = /\d/.test(password);
       const hasSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
 
-      const valid = !hasCapitalLetter || !hasSmallLetter || !hasDigit || !hasSpecialCharacter;
+      //test
+      //console.log(`has capital: ${hasCapitalLetter}\nhas small letter: 
+      //${hasSmallLetter}\n has digit: ${hasDigit} \n has special: ${hasSpecialCharacter}`);
+      
 
-      return valid? null: {passwordStrengthError:true}
+      const invalid = !hasCapitalLetter || !hasSmallLetter || !hasDigit || !hasSpecialCharacter;
+      //console.log(`invalid password: ${invalid}`);
+      
+
+      //return invalid? null: {passwordStrengthError:true};
+      return invalid? {passwordStrengthError:true} : null;
     }
   }
 
@@ -57,7 +68,7 @@ export class ValidatorService {
       if(password !== confirmPassword){
         //return {passwordmatcherror : true};
         control.get('confirmPassword')?.setErrors({passwordmatcherror : true});
-        console.log(control.get('confirmPassword'));
+        //console.log(control.get('confirmPassword'));
       }
       return null;
     }

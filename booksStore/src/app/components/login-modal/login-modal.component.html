@@ -1,1 +1,47 @@
-<p>login-modal works!</p>
+<section class="modal-wraper" (click)="anyClick($event)">
+    <div class="modal-body">
+        <form [formGroup]="loginForm">
+            <div class="row">
+                <div class="minCol">
+                    <label for="email">Email</label>
+                </div>
+                <div class="expandCol">
+                    <input #emailInput id="email" type="text" formControlName="email" 
+                    [class.hasError]="email?.invalid&&(email?.touched||email?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="email?.errors?.['required']&&(email?.touched||email?.dirty)">email is required</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="minCol">
+                    <label for="password">Password</label>
+                </div>
+                <div class="expandCol">
+                    <input #passwordInput id="password" type="text" formControlName="password" 
+                    [class.hasError]="password?.invalid&&(password?.touched||password?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="password?.errors?.['required']&&(password?.touched||password?.dirty)">password is required</p>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <div class="btnDiv" [class.btnDisabled]="loginForm.invalid" (click)="submitForm()">
+                    <p>enter to your account</p>
+                    <app-send-icon></app-send-icon>
+                </div>
+            </div>
+            <div class="btn-row">
+                <div class="btnDiv" (click)="redirectToSignup()">
+                    <p>not registered yet? signup</p>
+                    <app-signup-icon></app-signup-icon>
+                </div>
+            </div>
+        </form>
+        @if(message != undefined){
+            <div class="msgRow">
+                <p [ngClass]="isSuccess == true? 'success' : 'failure'">{{message}}</p>
+            </div>
+        }
+    </div>
+</section>

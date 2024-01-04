@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SendIconComponent } from "../../icons/send-icon/send-icon.component";
@@ -15,13 +15,26 @@ import { ValidatorService } from '../../services/validator.service';
     imports: [CommonModule, ReactiveFormsModule, SendIconComponent, LoginIconComponent]
 })
 //export class SignupModalComponent implements OnInit{
-export class SignupModalComponent{
+export class SignupModalComponent implements OnInit, AfterViewInit, OnDestroy{
 
   public title: string = "signup"
   @Output() closeMeEvent = new EventEmitter();
   @Output() succeededEvent = new EventEmitter();
+  @Output() redirectToLoginEvent = new EventEmitter();
   public message: string | undefined;
   public isSuccess!: boolean;
+
+  @ViewChild('firstNameInput') firstNameInputElement!: ElementRef;
+  @ViewChild('lastNameInput') lastNameInputElement!: ElementRef;
+  @ViewChild('emailInput') emailInputElement!: ElementRef;
+  @ViewChild('passwordInput') passwordInputElement!: ElementRef;
+  @ViewChild('confirmPasswordInput') confirmPasswordInputElement!: ElementRef;
+  
+  firstNamePlaceholder = "First Name";
+  lastNamePlaceholder = "Last Name";
+  emailPlaceholder = "Email";
+  passwordPlaceholder = "Password";
+  confirmPasswordPlaceholder = "Confirm Password";
 
   // signupForm = new FormGroup({
   //   firstName: new FormControl(''),
@@ -45,8 +58,28 @@ export class SignupModalComponent{
   private passwordMinLength:number = 8;
 
   //constructor(private usersService : UsersService, private formBuilder: FormBuilder, private validatorService: ValidatorService){}
-  constructor(private usersService : UsersService, private validatorService: ValidatorService){}
+  constructor(private usersService : UsersService, private validatorService: ValidatorService, private renderer: Renderer2){}
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.setPlaceholder);
+  }
   
+  ngAfterViewInit(): void {
+    this.setPlaceholder()
+
+    window.addEventListener('resize', () => {this.setPlaceholder()});
+  }
+  
+  private setPlaceholder(): void{
+    if (window.innerWidth <= 780){
+      console.log('small screen');
+      this.renderer.setAttribute(this.firstNameInputElement.nativeElement, 'placeholder', this.firstNamePlaceholder);
+      this.renderer.setAttribute(this.lastNameInputElement.nativeElement, 'placeholder', this.lastNamePlaceholder);
+      this.renderer.setAttribute(this.emailInputElement.nativeElement, 'placeholder', this.emailPlaceholder);
+      this.renderer.setAttribute(this.passwordInputElement.nativeElement, 'placeholder', this.passwordPlaceholder);
+      this.renderer.setAttribute(this.confirmPasswordInputElement.nativeElement, 'placeholder', this.confirmPasswordPlaceholder);
+    }
+  }
+
   ngOnInit(): void {
      this.initializeForm();
   }
@@ -99,9 +132,10 @@ export class SignupModalComponent{
   get confirmPassword() { return this.signupForm.get('confirmPassword'); }
   //get confirmPassword() { return this.signupForm.get('confirmPassword'); }
 
-  openLogin() {
-    throw new Error('Method not implemented.');
-    }
+  redirectToLogin() {
+    console.log('redirect to login modal');
+    this.redirectToLoginEvent.emit();
+  }
 
   anyClick(event: any){
     if(event.target.nodeName === 'SECTION'){
@@ -110,11 +144,6 @@ export class SignupModalComponent{
   }
 
   submitForm(){
-    console.log(this.signupForm);
-    
-  }
-
-  submitForm2(){
     console.log('ok click');
     console.log(this.signupForm.value);
     
@@ -130,7 +159,7 @@ export class SignupModalComponent{
         this.message = "success";
         setTimeout(() => {
           this.succeededEvent.emit();
-        }, 3000);
+        }, 7000);
       },
       error: (err) => {
         console.log(err);

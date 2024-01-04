@@ -77,9 +77,9 @@ main{
             //align-items: center;
         }
 
-        .col{
+        .minCol{
             //margin-left: auto;
-            margin-left: 1.5rem;
+            margin-left: 2rem;
             display: flex;
             align-items: center;
 
@@ -89,22 +89,7 @@ main{
                 text-align: left;
             }
 
-            input{
-                float: right;
-                clear: both;
-
-                font-size: 2.2rem;
-                width: 100%;
-                border-radius: .5rem;
-                outline: none;
-                background: transparent;
-
-                &.hasError{
-                    //background-color: red;
-                    background-color: rgba(255,0,0,.15);
-                    border-color: red;
-                }
-            }
+            
 
             // input:hover{
             //     filter: brightness(20%);
@@ -112,9 +97,51 @@ main{
         }
 
         .expandCol{
+            margin-left: 2rem;
+            margin-right: 2rem;
+            display: flex;
+            align-items: center;
             flex: 1;
-            max-width: 70%;  
-            margin-right: 2rem;              
+            max-width: 70%; 
+            
+            flex-direction: column;
+            //gap: .2rem;
+
+            .errorsMessages{
+                p{
+                    margin: 0;
+                    font-size: 1rem;
+                    color: red;
+                }
+            }
+            
+            input::placeholder {
+                //font-weight: bold;
+                //opacity: 0.5;
+                color: #000;
+                font-family: 'Oswald', sans-serif;
+            }
+
+            input{
+                float: right;
+                clear: both;
+
+                font-size: 2rem;
+                width: 100%;
+                border-radius: .5rem;
+                outline: none;
+                background: transparent;
+
+                // ::placeholder{
+                //     color: blueviolet;
+                // }
+                
+                &.hasError{
+                    //background-color: red;
+                    background-color: rgba(255,0,0,.15);
+                    border-color: red;
+                }
+            }
         }
 
         .btn-row{
@@ -127,7 +154,7 @@ main{
             
             //background-color: red;
 
-            .btnSend{
+            .btnDiv{
                 //box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
                 //box-shadow: .2rem .2rem #888888 inset;
                 //box-shadow: inset 0 0 10px #f8a100;
@@ -162,6 +189,12 @@ main{
                 .sendIcon{
                     width: 3rem;
                     height: 3rem;
+                }
+
+                &.btnDisabled{
+                    color: #444;
+                    pointer-events: none;
+                    cursor: not-allowed;
                 }
             }
         }
@@ -217,4 +250,25 @@ main{
     width: 70%;
     background-color: antiquewhite;
     margin: auto;
+}
+
+@media (max-width: 768px){
+    .modal-wraper{
+        .modal-body{
+            .row{
+                //display: inline;
+            }
+            .expandCol{
+                width: 100%;
+                max-width: 100%;
+            }
+            .minCol{
+                //flex: 0;
+                display: none;
+                label{
+                    display: none;
+                }
+            }
+        }
+    }
 }

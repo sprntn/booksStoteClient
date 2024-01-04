@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
+import { emit } from 'process';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
+  
   private apiURL = environment.baseUrl + 'Users/';
 
   constructor(private httpClient : HttpClient) { }
@@ -27,6 +28,24 @@ export class UsersService {
     //   ...user,
     //   Password: password
     // });//.pipe...
+  }
+
+  loginUser(user: {email: string, password: string}): Observable<any> {
+  //loginUser(user: {email: string, password: string}): Observable<boolean> {
+  //loginUser(user: {email: string, password: string}){
+    
+    //console.log(user);
+    // const loginUser = {
+    //   //"userId": 0,
+    //   "firstName": "",
+    //   "lastName": "",
+    //   "email": user.email,
+    //   "password": user.password
+    //   //"createdAt": "2024-01-03T09:51:05.669Z"
+    // }
+    return this.httpClient.post<any>(this.apiURL + 'loginUser/', {"Email": user.email, "Password":user.password})
+    //return this.httpClient.post<boolean>(this.apiURL + 'loginUser/', {"Email": user.email, "Password":user.password})
+    //return this.httpClient.post<boolean>(this.apiURL + 'loginUser/', loginUser);
   }
 
   test(): Observable<string>{//this is how to get string from api!

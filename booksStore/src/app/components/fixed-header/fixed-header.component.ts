@@ -27,9 +27,24 @@ export class FixedHeaderComponent {
     });
   }
 
+  // openModal(modalType: string){
+  //   // this.sub = this.modalsService.openModal(this.entry).subscribe(res => {
+  //   //   console.log(res);
+      
+  //   // })
+  // }
+
   openLoginModal() {
     console.log('open login modal!!!');
-    this.isUserLogged = true;//test!!!
+    this.sub = this.modalsService.openLoginModal(this.entry).subscribe(res => {
+      console.log(res);
+      
+    })
+    //this.isUserLogged = true;//test!!!
+    // this.sub = this.modalsService.openLoginModal(this.entry).subscribe(res => {
+    //   console.log(`res: ${res}`);
+      
+    // })
   }
 
   logOut() {

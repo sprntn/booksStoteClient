@@ -4,57 +4,86 @@
             <h2>{{title}}</h2>
         </div> -->
         
-        <form  id="mytest1"[formGroup]="signupForm">
+        <form [formGroup]="signupForm">
             <div class="row">
-                <div class="col">
+                <div class="minCol">
                     <label for="firstName">First name</label>
                 </div>
-                <div class="col expandCol">
-                    <input id="firstName" type="text" formControlName="firstName" [class.hasError]="firstName?.invalid">
+                <div class="expandCol">
+                    <input #firstNameInput id="firstName" type="text" formControlName="firstName" 
+                    [class.hasError]="firstName?.invalid&&(firstName?.touched||firstName?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="firstName?.errors?.['required']&&(firstName?.touched||firstName?.dirty)">first name is required</p>
+                        <p *ngIf="firstName?.errors?.['minlength']&&(firstName?.touched||firstName?.dirty)">first name must be at least 4 characters long</p>
+                        <p *ngIf="firstName?.errors?.['maxlength']&&(firstName?.touched||firstName?.dirty)">first name can have a maximum of 50 characters</p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="minCol">
                     <label for="lastName">Last name</label>
                 </div>
-                <div class="col expandCol">
-                    <input id="lastName" type="text" formControlName="lastName" [class.hasError]="lastName?.invalid">
+                <div class="expandCol">
+                    <input #lastNameInput id="lastName" type="text" formControlName="lastName" 
+                    [class.hasError]="lastName?.invalid&&(lastName?.touched||lastName?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="lastName?.errors?.['required']&&(lastName?.touched||lastName?.dirty)">last name is required</p>
+                        <p *ngIf="lastName?.errors?.['minlength']&&(lastName?.touched||lastName?.dirty)">last name must be at least 4 characters long</p>
+                        <p *ngIf="lastName?.errors?.['maxlength']&&(lastName?.touched||lastName?.dirty)">last name can have a maximum of 50 characters</p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="minCol">
                     <label for="email">Email</label>
                 </div>
-                <div class="col expandCol">
-                    <input id="email" type="text" formControlName="email" [class.hasError]="email?.invalid">
-                    <!-- <input id="email" type="text" required formControlName="email"> -->
+                <div class="expandCol">
+                    <input #emailInput id="email" type="text" formControlName="email" 
+                    [class.hasError]="email?.invalid&&(email?.touched||email?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="email?.errors?.['required']&&(email?.touched||email?.dirty)">email is required</p>
+                        <p *ngIf="email?.value && email?.errors?.['invalidEmail']&&(email?.touched||email?.dirty)">The email is invalid</p>
+                    </div>
                 </div>
-                <!-- <p>That is not a valid email</p> -->
             </div>
             <div class="row">
-                <div class="col">
+                <div class="minCol">
                     <label for="password">Password</label>
                 </div>
-                <div class="col expandCol">
-                    <input id="password" type="text" formControlName="password" [class.hasError]="password?.invalid">
+                <div class="expandCol">
+                    <input #passwordInput id="password" type="text" formControlName="password" 
+                    [class.hasError]="password?.invalid&&(password?.touched||password?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="password?.errors?.['required']&&(password?.touched||password?.dirty)">password is required</p>
+                        <p *ngIf="password?.errors?.['minlength']&&(password?.touched||password?.dirty)">password must be at least 8 characters long</p>
+                        <p *ngIf="password?.errors?.['maxlength']&&(password?.touched||password?.dirty)">password can have a maximum of 255 characters</p>
+                        <p *ngIf="password?.errors?.['passwordStrengthError']&&(password?.touched||password?.dirty)">
+                            password must contain digit upper letter lower letter and special character
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="minCol">
                     <label for="confirmPassword">Confirm Password</label>
                 </div>
-                <div class="col expandCol">
-                    <input id="confirmPassword" type="text" formControlName="confirmPassword" [class.hasError]="confirmPassword?.invalid">
+                <div class="expandCol">
+                    <input #confirmPasswordInput id="confirmPassword" type="text" formControlName="confirmPassword" 
+                    [class.hasError]="confirmPassword?.invalid&&(confirmPassword?.touched||confirmPassword?.dirty)">
+                    <div class="errorsMessages">
+                        <p *ngIf="confirmPassword?.errors?.['required']&&(confirmPassword?.touched||confirmPassword?.dirty)">confirm password is required</p>
+                        <p *ngIf="confirmPassword?.errors?.['passwordmatcherror']&&(confirmPassword?.touched||confirmPassword?.dirty)">Passwords must match</p>
+                    </div>
                 </div>
             </div>
             <div class="btn-row">
-                <div class="btnSend" (click)="submitForm()">
+                <div class="btnDiv" [class.btnDisabled]="signupForm.invalid" (click)="submitForm()">
                     <p>create new account</p>
                     <app-send-icon></app-send-icon>
                 </div>
             </div>
             <div class="btn-row">
-                <div class="btnSend" (click)="openLogin()">
+                <div class="btnDiv" (click)="redirectToLogin()">
                     <p>already registered? login</p>
                     <app-login-icon></app-login-icon>
                 </div>
