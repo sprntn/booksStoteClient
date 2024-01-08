@@ -4,15 +4,36 @@
     <div class="fixednavbarBtn">logout</div> -->
     <!-- <ng-container *ngIf="isUserLogged; then loggedUserTemplate; else guestUserTemplate"
     ></ng-container> -->
-    @if (isUserLogged) 
-    {
-        <div class="fixednavbarBtn btnDiv" (click)="logOut()">logout</div>
+    @if(message){
+        <h1>{{message}}</h1>
     }
-    @else {
-        <div class="fixednavbarBtn btnDiv" (click)="openSignupModal()">signup</div>
-        <div class="fixednavbarBtn btnDiv" (click)="openLoginModal()">login</div>
-    }
-    
+    <div class="fixednavbarBtnsDiv" [class.closedMenu]="openMenu">
+        @if (isUserLogged) 
+        {
+            <div class="fixednavbarBtn" (click)="logOut()">
+                <p>logout</p>
+                <app-logout-icon></app-logout-icon>
+            </div>
+        }
+        @else {
+            <div class="fixednavbarBtn" (click)="openSignupModal()">
+                <p>signup</p>
+                <app-signup-icon></app-signup-icon>
+            </div>
+            <div class="fixednavbarBtn" (click)="openLoginModal()">
+                <p>login</p>
+                <app-login-icon></app-login-icon>
+            </div>
+        }
+    </div>
+    <div id="openCloseMenuBtn" (click)="openCloseMenu()">
+        @if(openMenu){
+            <app-menu-icon></app-menu-icon>
+        }
+        @else{
+            <app-close-menu-icon></app-close-menu-icon>
+        }
+    </div>
 </nav>
 <div #formModal></div>
 <ng-template #test><div class="fixednavbarBtn">login</div></ng-template>

@@ -4,6 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SendIconComponent } from '../../icons/send-icon/send-icon.component';
 import { UsersService } from '../../services/users.service';
 import { SignupIconComponent } from '../../icons/signup-icon/signup-icon.component';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login-modal',
@@ -30,7 +32,7 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
   public message: string | undefined;
   public isSuccess!: boolean;
 
-  constructor(private usersService : UsersService, private renderer: Renderer2){}
+  constructor(private usersService : UsersService, private renderer: Renderer2, private router: Router){}
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.setPlaceholder);
@@ -70,6 +72,10 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
     this.redirectToSignupEvent.emit();
   }
 
+  storeToken(token: string){
+    localStorage.setItem('booksJwtToken', token);
+  }
+
   submitForm(){
     console.log(this.loginForm.value);
     
@@ -78,10 +84,13 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
     this.usersService.loginUser(this.loginForm.value).subscribe({
       next: (res) => {
         console.log(res);
+        this.storeToken(res.jwtToken);
         this.isSuccess = true;
         this.message = `wellcome back ${res.firstName}`;
+        //this.router.navigate(['main-page/edit-travel', this.travelId]);
+        this.router.navigate(['user-page', res])
         setTimeout(() => {
-          this.succeededEvent.emit();
+          this.succeededEvent.emit(res.user);
         }, 7000);
       },
       error: (err) => {

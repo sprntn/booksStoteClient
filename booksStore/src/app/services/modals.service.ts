@@ -13,7 +13,9 @@ export class ModalsService {
   private loginComponentRef!: ComponentRef<LoginModalComponent>;
   //private componentRef!: ComponentRef<any>;
   
-  private componentSubscriber!: Subject<boolean>;//true if success
+  private componentSubscriber!: Subject<any>;//true if success
+  //private componentSubscriber!: Subject<boolean>;//true if success
+  //private loginComponentSubscriber!: Subject<string>;//true if success
   
   constructor() { }
   //constructor(private viewContainerRef: ViewContainerRef) { }
@@ -30,18 +32,20 @@ export class ModalsService {
   //   component?.instance.succeededEvent.subscribe(() => this.success());
   // }
 
-  openLoginModal(entry: ViewContainerRef): Observable<boolean> {
+  //openLoginModal(entry: ViewContainerRef): Observable<boolean> {
+  //openLoginModal(entry: ViewContainerRef): Observable<any> {
+  openLoginModal(entry: ViewContainerRef): Observable<string> {
     console.log('open logi modal');
     
     this.loginComponentRef = entry.createComponent(LoginModalComponent);
     this.loginComponentRef.instance.closeMeEvent.subscribe(() => this.closeModal(this.loginComponentRef));
-    this.loginComponentRef.instance.succeededEvent.subscribe(() => this.success(this.loginComponentRef));
+    this.loginComponentRef.instance.succeededEvent.subscribe((user) => this.successLogin(this.loginComponentRef, user));
     this.loginComponentRef.instance.redirectToSignupEvent.subscribe(() => {
       this.closeModal(this.loginComponentRef);
       this.openSignupModal(entry);
     });
 
-    this.componentSubscriber = new Subject<boolean>();
+    this.componentSubscriber = new Subject<string>();
 
     return this.componentSubscriber.asObservable();
   }
@@ -67,7 +71,16 @@ export class ModalsService {
   success(componentRef: ComponentRef<any>): void{
     console.log(`successful modal`);
     
-    this.componentSubscriber.next(true);
+    this.componentSubscriber.next(true);//insteade pass the logged user, after that it's needed to redirect to user page
+    //this.closeModal();
+    this.closeModal(componentRef);
+  }
+
+  successLogin(componentRef: ComponentRef<any>, user: any): void{
+    console.log(`successful modal`);
+    console.log(`user received by modal service: ${JSON.stringify(user)}`);
+    
+    this.componentSubscriber.next(user.firstName);//insteade pass the logged user, after that it's needed to redirect to user page
     //this.closeModal();
     this.closeModal(componentRef);
   }
