@@ -5,6 +5,8 @@ import { SendIconComponent } from '../../icons/send-icon/send-icon.component';
 import { UsersService } from '../../services/users.service';
 import { SignupIconComponent } from '../../icons/signup-icon/signup-icon.component';
 import { Router } from '@angular/router';
+//import { Auth } from '../../interfaces/auth';
+//import { AuthV1Service } from '../../services/auth-v1.service';
 
 
 @Component({
@@ -32,7 +34,13 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
   public message: string | undefined;
   public isSuccess!: boolean;
 
-  constructor(private usersService : UsersService, private renderer: Renderer2, private router: Router){}
+  constructor(
+    private usersService : UsersService, 
+    private renderer: Renderer2, 
+    private router: Router, 
+    //private authService: Auth
+    //private authService: AuthV1Service
+    ){}
 
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.setPlaceholder);
@@ -72,9 +80,12 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
     this.redirectToSignupEvent.emit();
   }
 
-  storeToken(token: string){
-    localStorage.setItem('booksJwtToken', token);
-  }
+  // storeToken(token: string){
+  //   console.log("storing token");
+    
+  //   //localStorage.setItem('jwtToken', token);
+  //   this.authService.setToken(token);
+  // }
 
   submitForm(){
     console.log(this.loginForm.value);
@@ -84,10 +95,11 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
     this.usersService.loginUser(this.loginForm.value).subscribe({
       next: (res) => {
         console.log(res);
-        this.storeToken(res.jwtToken);
+        //this.storeToken(res.jwtToken);
+        // this.authService.setToken(res.jwtToken);
+        localStorage.setItem('jwtToken', res.jwtToken);
         this.isSuccess = true;
         this.message = `wellcome back ${res.firstName}`;
-        //this.router.navigate(['main-page/edit-travel', this.travelId]);
         this.router.navigate(['user-page', res])
         setTimeout(() => {
           this.succeededEvent.emit(res.user);

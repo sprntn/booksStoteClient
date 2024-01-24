@@ -21,9 +21,11 @@ export class FixedHeaderComponent {
   entry!: ViewContainerRef;
   sub!: Subscription;
   public isUserLogged: boolean = false;
-  public openMenu = false;
+  public isOpenMenu = false;
+  public isAccountMenuOpen = false;
+  public isCategoriesMenuOpen = false;
 
-  message: string | undefined ;
+  //message: string | undefined ;
 
   constructor(private modalsService: ModalsService){}
 
@@ -46,7 +48,8 @@ export class FixedHeaderComponent {
     console.log('open login modal!!!');
     this.sub = this.modalsService.openLoginModal(this.entry).subscribe(res => {
       console.log(res);
-      this.message = `wellcome ${res}`
+      //this.message = `wellcome ${res}`
+      this.isUserLogged = true;
     })
     //this.isUserLogged = true;//test!!!
     // this.sub = this.modalsService.openLoginModal(this.entry).subscribe(res => {
@@ -58,10 +61,21 @@ export class FixedHeaderComponent {
   logOut() {
     console.log('log out!!!');
     this.isUserLogged = false;
-    this.message = undefined;
+    //this.message = undefined;
+
+    //clean token
+    localStorage.removeItem("jwtToken");
   }
     
-  openCloseMenu(){
-    this.openMenu = !this.openMenu;
+  toggleMenu(){
+    this.isOpenMenu = !this.isOpenMenu;
+  }
+
+  toggleCategories(){
+    this.isCategoriesMenuOpen = !this.isCategoriesMenuOpen;
+  }
+
+  toggleAccount(){
+    this.isAccountMenuOpen = !this.isAccountMenuOpen;
   }
 }

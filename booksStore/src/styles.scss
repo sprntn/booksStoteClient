@@ -2,6 +2,7 @@
 
 :root{
     --navbarGradient: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
+    --maxLargeScreen: 481px;
 }
 
 body {
@@ -10,7 +11,7 @@ body {
 }
 
 main{
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 // nav.fixedNavbar{
@@ -35,13 +36,120 @@ nav.fixedNavbar{
     position: fixed;
     top: 0;
     width: 100%;
-    height: 3rem;
+    //height: 3rem;
+    height: 5rem;
 
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: space-evenly;
+    //justify-content: flex-end;
     //margin-right: .5rem;
-    align-items: center;
+    //align-items: center;
 
+    
+    #menuBtn{
+        display: none;
+        @media (max-width: 481px){
+            display: block;
+            margin-right: .5rem;
+            height: 2rem;
+            width: 2rem;
+        }
+    }
+
+    //@media (max-width: --maxLargeScreen) {
+    // @media (max-width: 481px) {
+    //     #menuBtn{
+    //         display: block;
+    //         margin-right: .5rem;
+    //         height: 2rem;
+    //         width: 2rem;
+    //     }
+    // }
+
+    .navbarBtn{
+        color: white;
+        cursor: pointer;
+    }
+
+    .menuContainer{
+
+        //@media (max-width: --maxLargeScreen) {
+        @media (max-width: 481px) {
+            position: absolute;
+            top: 5rem;
+            width: 100%;
+            background: var(--navbarGradient);
+
+            &.hideOnSmall{
+                display: none;
+            }
+        }
+        .accountBtns{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .accountBtn{
+                border: .1rem solid white;
+                border-radius: .3rem;
+                height: 2rem;
+                width: 10rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-right: .5rem;
+                padding: .2rem .5em 0 .5em;
+                line-height: 2rem;
+
+                
+            }
+
+            @media (max-width: 481px){
+                //display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+
+                &.toggledHide{
+                    display: none;
+                }
+                .accountBtn{
+                    width: calc(100% - 2rem);
+                }
+            }
+        }
+
+        .categoriesBtns{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+    
+            .categoryBtn{
+    
+            }
+            @media (max-width: 481px){
+                flex-direction: column;
+                width: 100%;
+                .categoryBtn{
+                    width: calc(100% - 2rem);
+                }
+
+                &.toggledHide{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    
+
+    
+
+    
+
+
+    //start over from here
     .fixednavbarBtnsDiv{
         display: flex;
         justify-content: flex-end;
@@ -88,6 +196,15 @@ nav.fixedNavbar{
         padding: .1rem;
         cursor: pointer;
     }
+
+    #openCloseAccountBtn{
+        display: none;
+    }
+
+    #openCloseCategoriesBtn{
+        display: none;
+    }
+    //until here
 }
 
 .modal-wraper{
@@ -269,6 +386,34 @@ nav.fixedNavbar{
     }
 }
 
+.bookCardsListWrapper{
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .bookCard{
+        // width: 10vw;
+        // height: 30vw;
+        height: 20rem;
+        width: 10rem;
+        border: solid 2px red;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img{
+            height:  9rem;
+    
+            //width: 10rem;
+            //height: 150%; /* Adjust this value to fit your needs */
+            //object-fit: cover; /* Ensures the image maintains its aspect ratio and covers the entire container */
+        }
+    }
+}
+
+
+
 // .modal-body{
 //     // width: 100%;
 //     // height: 100%;
@@ -324,6 +469,8 @@ nav.fixedNavbar{
 
 @media (max-width: 481px){
     nav.fixedNavbar{
+
+        //start over from here
         .fixednavbarBtnsDiv{
             display: flex;
             flex-direction: column;
@@ -359,5 +506,14 @@ nav.fixedNavbar{
         #openCloseMenuBtn{
             display: block;
         }
+
+        #openCloseAccountBtn{
+            display: block;
+        }
+
+        #openCloseCategoriesBtn{
+            display: block;
+        }
+        //to here
     }
 }

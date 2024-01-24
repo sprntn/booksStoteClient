@@ -1,0 +1,18 @@
+<div class="bookCardsListWrapper">
+    <!-- <app-book-card *ngFor="let num of numbers"
+    [num]="num" ></app-book-card> -->
+    <!-- @for (user of users; track user.id) {
+        {{ user.name }}
+      } @empty {
+        Empty list of users
+      } -->
+    @for (book of books; track book.BookId){
+        <app-book-card [description]="book.Description" [imageUrl]="book.ImgUrl" [title]="book.Title"></app-book-card>
+    }
+    
+    <!-- <p>test!</p>
+    <div *ngFor="let book of books$ | async">
+      <app-book-card [description]="book.Description" [imageUrl]="book.ImgUrl" [title]="book.Title"></app-book-card>
+    </div> -->
+
+</div>

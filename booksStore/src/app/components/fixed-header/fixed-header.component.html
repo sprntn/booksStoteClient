@@ -4,36 +4,131 @@
     <div class="fixednavbarBtn">logout</div> -->
     <!-- <ng-container *ngIf="isUserLogged; then loggedUserTemplate; else guestUserTemplate"
     ></ng-container> -->
-    @if(message){
+    <!-- @if(message){
         <h1>{{message}}</h1>
-    }
-    <div class="fixednavbarBtnsDiv" [class.closedMenu]="openMenu">
-        @if (isUserLogged) 
-        {
-            <div class="fixednavbarBtn" (click)="logOut()">
-                <p>logout</p>
-                <app-logout-icon></app-logout-icon>
-            </div>
+    } -->
+    <div class="menuContainer" [class.hideOnSmall]="!isOpenMenu">
+        <div id="openAccount" class="navbarBtn"  (click)="toggleAccount()">
+            Account
+            @if (isAccountMenuOpen) {
+                -
+            }
+            @else{
+                +
+            }
+        </div>
+        <div class="accountBtns" [class.toggledHide]="!isAccountMenuOpen">
+            @if (isUserLogged) 
+            {
+                <div class="navbarBtn accountBtn" (click)="logOut()">
+                    <p>logout</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+                <div class="navbarBtn accountBtn" (click)="logOut()">
+                    <p>my books list</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+                <div class="navbarBtn accountBtn" (click)="logOut()">
+                    <p>Account</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+            }
+            @else {
+                <div class="navbarBtn accountBtn" (click)="openSignupModal()">
+                    <p>signup</p>
+                    <app-signup-icon></app-signup-icon>
+                </div>
+                <div class="navbarBtn accountBtn" (click)="openLoginModal()">
+                    <p>login</p>
+                    <app-login-icon></app-login-icon>
+                </div>
+            }
+        </div>
+        <div id="openCategories" class="navbarBtn" (click)="toggleCategories()">
+            Categories
+            @if (isCategoriesMenuOpen) {
+                -
+            }
+            @else{
+                +
+            }
+        </div>
+        <div class="categoriesBtns" [class.toggledHide]="!isCategoriesMenuOpen">
+            <div class="navbarBtn categoryBtn">category1</div>
+            <div class="navbarBtn categoryBtn">category1</div>
+            <div class="navbarBtn categoryBtn">category1</div>
+            <div class="navbarBtn categoryBtn">category1</div>
+        </div>
+    </div>
+    
+    <div id="menuBtn" class="navbarBtn" (click)="toggleMenu()">
+        @if(isOpenMenu){
+            <app-close-menu-icon></app-close-menu-icon>
         }
-        @else {
-            <div class="fixednavbarBtn" (click)="openSignupModal()">
-                <p>signup</p>
-                <app-signup-icon></app-signup-icon>
-            </div>
-            <div class="fixednavbarBtn" (click)="openLoginModal()">
-                <p>login</p>
-                <app-login-icon></app-login-icon>
-            </div>
+        @else{
+            <app-menu-icon></app-menu-icon>
         }
     </div>
+
+
+
+    <!-- <div class="fixednavbarBtnsDiv" [class.closedMenu]="isOpenMenu">
+        <div id="openCloseAccountBtn">
+            account
+            @if(isOpenAccountMenu){
+                + icon here
+            } 
+            @else {
+                - icon here
+            }           
+        </div>
+        <div id="accountNavbarBtns">
+            @if (isUserLogged) 
+            {
+                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
+                    <p>logout</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
+                    <p>my books list</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
+                    <p>Account</p>
+                    <app-logout-icon></app-logout-icon>
+                </div>
+            }
+            @else {
+                <div class="fixednavbarBtn" (click)="openSignupModal()">
+                    <p>signup</p>
+                    <app-signup-icon></app-signup-icon>
+                </div>
+                <div class="fixednavbarBtn" (click)="openLoginModal()">
+                    <p>login</p>
+                    <app-login-icon></app-login-icon>
+                </div>
+            }
+        </div>
+        <div id="openCloseCategoriesBtn">
+            categories
+            @if(isOpenAccountMenu){
+                + icon here
+            } 
+            @else {
+                - icon here
+            }           
+        </div>
+    </div>
+
     <div id="openCloseMenuBtn" (click)="openCloseMenu()">
-        @if(openMenu){
+        @if(isOpenMenu){
             <app-menu-icon></app-menu-icon>
         }
         @else{
             <app-close-menu-icon></app-close-menu-icon>
         }
-    </div>
+    </div> -->
 </nav>
+
 <div #formModal></div>
 <ng-template #test><div class="fixednavbarBtn">login</div></ng-template>
