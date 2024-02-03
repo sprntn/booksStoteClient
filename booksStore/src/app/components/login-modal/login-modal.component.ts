@@ -5,6 +5,7 @@ import { SendIconComponent } from '../../icons/send-icon/send-icon.component';
 import { UsersService } from '../../services/users.service';
 import { SignupIconComponent } from '../../icons/signup-icon/signup-icon.component';
 import { Router } from '@angular/router';
+import { ReloadBooksSubjectService } from '../../services/reload-books-subject.service';
 //import { Auth } from '../../interfaces/auth';
 //import { AuthV1Service } from '../../services/auth-v1.service';
 
@@ -37,7 +38,8 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
   constructor(
     private usersService : UsersService, 
     private renderer: Renderer2, 
-    private router: Router, 
+    private reloadSubjectService: ReloadBooksSubjectService,
+    //private router: Router, 
     //private authService: Auth
     //private authService: AuthV1Service
     ){}
@@ -62,6 +64,7 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
   ngOnInit(): void {
     this.initializeForm();
   }
+
   initializeForm() {
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
@@ -99,16 +102,25 @@ export class LoginModalComponent implements OnInit, AfterViewInit, OnDestroy{
         // this.authService.setToken(res.jwtToken);
         localStorage.setItem('jwtToken', res.jwtToken);
         this.isSuccess = true;
-        this.message = `wellcome back ${res.firstName}`;
-        this.router.navigate(['user-page', res])
+        this.message = `wellcome back ${res.user.firstName}`;
+
+        //pass message to books page to reload books
+        console.log('passing user:', res.user);
+        
+        //this.loginSubjectService.loginSubject$.next(res.user);
+        this.reloadSubjectService.reloadSubject$.next({categoryId: 0, searchKey: ""});
+        //this.router.navigate(['user-page', res])
         setTimeout(() => {
           this.succeededEvent.emit(res.user);
         }, 7000);
       },
       error: (err) => {
-        console.log(err);
+        console.log('error');
+        
+        //console.log('Error: ',err);
         this.isSuccess = false;
-        this.message = err.error;
+        //this.message = err.error;
+        this.message = err.statusText;
         setTimeout(() => {
           this.message = undefined;
         },7000);

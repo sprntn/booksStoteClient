@@ -1,20 +1,96 @@
 <nav class="fixedNavbar">
-    <!-- <div class="fixednavbarBtn">signup</div>
-    <div class="fixednavbarBtn">login</div>
-    <div class="fixednavbarBtn">logout</div> -->
-    <!-- <ng-container *ngIf="isUserLogged; then loggedUserTemplate; else guestUserTemplate"
-    ></ng-container> -->
-    <!-- @if(message){
-        <h1>{{message}}</h1>
-    } -->
-    <div class="menuContainer" [class.hideOnSmall]="!isOpenMenu">
-        <div id="openAccount" class="navbarBtn"  (click)="toggleAccount()">
-            Account
-            @if (isAccountMenuOpen) {
-                -
+    <div id="firstRow">
+        <div id="searchContainer">
+            <input id="searchInput" type="text" [formControl]="searchControl">
+        </div>
+        <div id="menuBtn" class="navbarBtn" (click)="toggleMenu()">
+            @if(isOpenMenu){
+                <app-close-menu-icon></app-close-menu-icon>
             }
             @else{
-                +
+                <app-menu-icon></app-menu-icon>
+            }
+        </div>
+        <div class="menuContainer" [class.hideOnSmall]="!isOpenMenu">
+            <div id="openAccount" class="lessMoreBtnRow"  (click)="toggleAccount()">
+                <app-account-icon></app-account-icon>
+                Account
+                @if (isAccountMenuOpen) {
+                    <app-show-less-icon></app-show-less-icon>
+                }
+                @else{
+                    <app-show-more-icon></app-show-more-icon>
+                }
+            </div>
+            <div class="accountBtns" [class.toggledHide]="!isAccountMenuOpen">
+                @if (isUserLogged) 
+                {
+                    <div class="navbarBtn accountBtn" (click)="logOut()">
+                        <p>logout</p>
+                        <app-logout-icon></app-logout-icon>
+                    </div>
+                    <div class="navbarBtn accountBtn" (click)="logOut()">
+                        <p>my books list</p>
+                        <app-logout-icon></app-logout-icon>
+                    </div>
+                    <div class="navbarBtn accountBtn" (click)="logOut()">
+                        <p>Account</p>
+                        <app-logout-icon></app-logout-icon>
+                    </div>
+                }
+                @else {
+                    <div class="navbarBtn accountBtn" (click)="openSignupModal()">
+                        <p>signup</p>
+                        <app-signup-icon></app-signup-icon>
+                    </div>
+                    <div class="navbarBtn accountBtn" (click)="openLoginModal()">
+                        <p>login</p>
+                        <app-login-icon></app-login-icon>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="secondRow">
+        <div class="menuContainer" [class.hideOnSmall]="!isOpenMenu">
+            <div id="openCategories" class="lessMoreBtnRow" (click)="toggleCategories()">
+                <app-categories-icon></app-categories-icon>
+                Categories
+                @if (isCategoriesMenuOpen) {
+                    <app-show-less-icon></app-show-less-icon>
+                }
+                @else{
+                    <app-show-more-icon></app-show-more-icon>
+                }
+            </div>
+            <div class="categoriesBtns" [class.toggledHide]="!isCategoriesMenuOpen">
+                <app-category-btn 
+                    [CategoryId]="1" 
+                    [CategoryName]="'test1'" 
+                    (CategorySelected)="handleCategorySelected($event)">
+                </app-category-btn>
+                <div class="navbarBtn categoryBtn">category1</div>
+                <div class="navbarBtn categoryBtn">category1</div>
+                <div class="navbarBtn categoryBtn">category1</div>
+                <div class="navbarBtn categoryBtn">category1</div>
+            </div>
+        </div>
+    </div>
+    
+<!-- 
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="menuContainer" [class.hideOnSmall]="!isOpenMenu">
+        <div id="openAccount" class="lessMoreBtnRow"  (click)="toggleAccount()">
+            <app-account-icon></app-account-icon>
+            Account
+            @if (isAccountMenuOpen) {
+                <app-show-less-icon></app-show-less-icon>
+            }
+            @else{
+                <app-show-more-icon></app-show-more-icon>
             }
         </div>
         <div class="accountBtns" [class.toggledHide]="!isAccountMenuOpen">
@@ -44,13 +120,14 @@
                 </div>
             }
         </div>
-        <div id="openCategories" class="navbarBtn" (click)="toggleCategories()">
+        <div id="openCategories" class="lessMoreBtnRow" (click)="toggleCategories()">
+            <app-categories-icon></app-categories-icon>
             Categories
             @if (isCategoriesMenuOpen) {
-                -
+                <app-show-less-icon></app-show-less-icon>
             }
             @else{
-                +
+                <app-show-more-icon></app-show-more-icon>
             }
         </div>
         <div class="categoriesBtns" [class.toggledHide]="!isCategoriesMenuOpen">
@@ -59,74 +136,6 @@
             <div class="navbarBtn categoryBtn">category1</div>
             <div class="navbarBtn categoryBtn">category1</div>
         </div>
-    </div>
-    
-    <div id="menuBtn" class="navbarBtn" (click)="toggleMenu()">
-        @if(isOpenMenu){
-            <app-close-menu-icon></app-close-menu-icon>
-        }
-        @else{
-            <app-menu-icon></app-menu-icon>
-        }
-    </div>
-
-
-
-    <!-- <div class="fixednavbarBtnsDiv" [class.closedMenu]="isOpenMenu">
-        <div id="openCloseAccountBtn">
-            account
-            @if(isOpenAccountMenu){
-                + icon here
-            } 
-            @else {
-                - icon here
-            }           
-        </div>
-        <div id="accountNavbarBtns">
-            @if (isUserLogged) 
-            {
-                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
-                    <p>logout</p>
-                    <app-logout-icon></app-logout-icon>
-                </div>
-                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
-                    <p>my books list</p>
-                    <app-logout-icon></app-logout-icon>
-                </div>
-                <div class="fixednavbarBtn" [class.hideOnSmall]="!isOpenAccountMenu" (click)="logOut()">
-                    <p>Account</p>
-                    <app-logout-icon></app-logout-icon>
-                </div>
-            }
-            @else {
-                <div class="fixednavbarBtn" (click)="openSignupModal()">
-                    <p>signup</p>
-                    <app-signup-icon></app-signup-icon>
-                </div>
-                <div class="fixednavbarBtn" (click)="openLoginModal()">
-                    <p>login</p>
-                    <app-login-icon></app-login-icon>
-                </div>
-            }
-        </div>
-        <div id="openCloseCategoriesBtn">
-            categories
-            @if(isOpenAccountMenu){
-                + icon here
-            } 
-            @else {
-                - icon here
-            }           
-        </div>
-    </div>
-
-    <div id="openCloseMenuBtn" (click)="openCloseMenu()">
-        @if(isOpenMenu){
-            <app-menu-icon></app-menu-icon>
-        }
-        @else{
-            <app-close-menu-icon></app-close-menu-icon>
-        }
     </div> -->
 </nav>
 

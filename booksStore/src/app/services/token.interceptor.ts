@@ -25,6 +25,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   //   return next(clonedReq);
   // }
 
+  console.log(req);
+  
   // console.log(`req with no token: ${JSON.stringify(req)}`);
   try{
     //console.log(authService.getToken() ?? "not working");

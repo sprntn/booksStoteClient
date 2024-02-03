@@ -162,9 +162,12 @@ export class SignupModalComponent implements OnInit, AfterViewInit, OnDestroy{
         }, 7000);
       },
       error: (err) => {
-        console.log(err);
+        console.log("error test");
+        
+        //console.log('Error: ',err);
         this.isSuccess = false;
-        this.message = err.error;
+        //this.message = err.error;
+        this.message = err.statusText;
         setTimeout(() => {
           this.message = undefined;
         },7000);

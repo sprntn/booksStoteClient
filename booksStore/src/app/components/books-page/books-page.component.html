@@ -1,0 +1,26 @@
+<p>books-page works!</p>
+<p>books-page works!</p>
+<p>books-page works!</p>
+<p>books-page works!</p>
+<p>books-page works!</p>
+
+<ul>
+    <li *ngFor="let book of books$ | async">{{book.Title}} v1</li>
+</ul>
+<hr> 
+<ul> 
+    @for (book of (books$ | async); track $index) {
+        <li>{{book.Title}} v2</li>
+    }@empty {
+        <h3>empty list</h3>
+    }
+</ul>
+
+<div class="bookCardsListWrapper">
+    @for (book of (books$ | async); track $index) {
+        <app-book-card [description]="book.Description" [imageUrl]="book.ImgUrl" [title]="book.Title"></app-book-card>
+    }
+    <!-- @for (book of books$ | async;; track book.BookId){
+        <app-book-card [description]="book.Description" [imageUrl]="book.ImgUrl" [title]="book.Title"></app-book-card>
+    } -->
+</div>

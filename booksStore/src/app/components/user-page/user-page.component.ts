@@ -25,7 +25,7 @@ export class UserPageComponent implements OnInit, OnDestroy{
     this.booksSubscription?.unsubscribe();
   }
   ngOnInit(): void {
-    this.getBooks();
+    //this.getBooks();
     //this.books$ = this.booksService.getBooksV2();
   }
 

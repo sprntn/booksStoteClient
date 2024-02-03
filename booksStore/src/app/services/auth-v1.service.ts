@@ -8,12 +8,12 @@ export class AuthV1Service implements Auth{
 
   constructor() { }
   getToken(): string {
-    throw new Error('Method not implemented.');
+    return localStorage.getItem('jwtToken') ?? "";
   }
   setToken(token: string): void {
     localStorage.setItem('jwtToken', token);
   }
   clearToken(): void {
-    throw new Error('Method not implemented.');
+    localStorage.removeItem("jwtToken");
   }
 }

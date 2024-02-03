@@ -46,6 +46,26 @@ nav.fixedNavbar{
     //margin-right: .5rem;
     //align-items: center;
 
+    #firstRow{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #searchContainer{
+        width: 40%;
+        #searchInput{
+            background: transparent;
+            height: 2rem;
+            width: 100%;
+            border-radius: .5rem;
+            outline: none;
+            //font-size: 2rem;
+            // border: .1rem solid white;
+            // border-radius: .3rem;
+        }
+    }
+    
     
     #menuBtn{
         display: none;
@@ -56,16 +76,6 @@ nav.fixedNavbar{
             width: 2rem;
         }
     }
-
-    //@media (max-width: --maxLargeScreen) {
-    // @media (max-width: 481px) {
-    //     #menuBtn{
-    //         display: block;
-    //         margin-right: .5rem;
-    //         height: 2rem;
-    //         width: 2rem;
-    //     }
-    // }
 
     .navbarBtn{
         color: white;
@@ -85,6 +95,23 @@ nav.fixedNavbar{
                 display: none;
             }
         }
+
+        .lessMoreBtnRow{
+            @media (max-width: 481px){
+                width: calc(100% - 1rem);
+                height: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                cursor: pointer;
+                border: .1rem solid white;
+                border-radius: .3rem;
+                color: #fff;
+                margin: auto;
+            }
+            display: none;
+        }
+
         .accountBtns{
             display: flex;
             justify-content: flex-end;
@@ -98,7 +125,7 @@ nav.fixedNavbar{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-right: .5rem;
+                //margin-right: .5rem;
                 padding: .2rem .5em 0 .5em;
                 line-height: 2rem;
 
@@ -126,13 +153,15 @@ nav.fixedNavbar{
             justify-content: space-evenly;
     
             .categoryBtn{
-    
+                text-align: center;
             }
             @media (max-width: 481px){
                 flex-direction: column;
                 width: 100%;
                 .categoryBtn{
-                    width: calc(100% - 2rem);
+                    width: calc(100% - 1rem);
+                    border: .1rem solid white;
+                    border-radius: .3rem;
                 }
 
                 &.toggledHide{
@@ -140,71 +169,7 @@ nav.fixedNavbar{
                 }
             }
         }
-    }
-
-    
-
-    
-
-    
-
-
-    //start over from here
-    .fixednavbarBtnsDiv{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-
-        .fixednavbarBtn{
-            color: white;
-            // border-style: solid;
-            // border-color: white;
-            border: .1rem solid white;
-            border-radius: .3rem;
-    
-            height: 2rem;
-            width: 10rem;
-    
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-    
-            line-height: 2rem;//to center text vertically
-    
-            margin-right: .5rem;
-            padding: .2rem .5em 0 .5em;
-    
-            cursor: pointer;
-        }
-    }
-
-    #openCloseMenuBtn{
-        display: none;
-
-        color: white;
-        border: .1rem solid white;
-        border-radius: .3rem;
-
-        height: 2rem;
-        width: 2rem;
-
-        // display: flex;
-        // align-items: center;
-        // justify-content: space-between;
-
-        margin-right: .5rem;
-        padding: .1rem;
-        cursor: pointer;
-    }
-
-    #openCloseAccountBtn{
-        display: none;
-    }
-
-    #openCloseCategoriesBtn{
-        display: none;
-    }
-    //until here
+    }   
 }
 
 .modal-wraper{

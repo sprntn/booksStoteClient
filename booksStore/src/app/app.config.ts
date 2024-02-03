@@ -8,7 +8,7 @@ import { tokenInterceptor } from './services/token.interceptor';
 //import { TokenInterceptorService } from './services/token-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch(), withInterceptors([tokenInterceptor]))]
-  //providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch())]
+  //providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch(), withInterceptors([tokenInterceptor]))]
+  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch())]
   //providers: [provideRouter(routes), provideClientHydration(), provideHttpClient()]
 };
