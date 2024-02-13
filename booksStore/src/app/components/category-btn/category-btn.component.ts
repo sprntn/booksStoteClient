@@ -8,14 +8,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './category-btn.component.scss'
 })
 export class CategoryBtnComponent {
-  @Input() CategoryId!: number;
-  @Input() CategoryName!: string;
+  @Input() CategoryId!: number| null | undefined;
+  @Input() CategoryTitle!: string;
   
   @Output() CategorySelected: EventEmitter<number> = new EventEmitter();
 
   constructor(){}
 
   onCategorySelected(): void{
-    this.CategorySelected.emit(this.CategoryId);
+    this.CategorySelected.emit(this.CategoryId ?? 0);
   }
 }

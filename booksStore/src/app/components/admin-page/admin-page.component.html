@@ -1,0 +1,16 @@
+<div class="container">
+    @if (!isBooksFilterOpen) {
+        <div id="openAdminFilterBtn" class="adminBtn" (click)="toggleBooksFilter()">Open Filter</div>
+    }
+    @else {
+        <div id="openAdminFilterBtn" class="adminBtn" (click)="toggleBooksFilter()">Close Filter</div>
+        <!-- <form>filter form here</form> -->
+        <app-admin-books-filter></app-admin-books-filter>
+    }
+    
+    <!-- <div id="DownloadBooksBtn" class="adminBtn" (click)="downloadBooks()">Download Books</div> -->
+    <div id="uploadBooksBtn" class="adminBtn" (click)="uploadBooks()">Upload Books</div>
+    <!-- <div id="clearBooksBtn" class="adminBtn" (click)="clearBooks()">Clear</div> -->
+</div>
+
+

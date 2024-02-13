@@ -1,9 +1,9 @@
-<nav class="fixedNavbar">
+<nav class="fixedNavbar" #headerElement>
     <div id="firstRow">
         <div id="searchContainer">
             <input id="searchInput" type="text" [formControl]="searchControl">
         </div>
-        <div id="menuBtn" class="navbarBtn" (click)="toggleMenu()">
+        <div #headerElement id="menuBtn" class="navbarBtn" (click)="toggleMenu()">
             @if(isOpenMenu){
                 <app-close-menu-icon></app-close-menu-icon>
             }
@@ -64,18 +64,31 @@
                 }
             </div>
             <div class="categoriesBtns" [class.toggledHide]="!isCategoriesMenuOpen">
-                <app-category-btn 
+                @for (category of (categories$ | async); track $index){
+                    <app-category-btn 
+                        [CategoryId]="category.CategoryId" 
+                        [CategoryTitle]="category.Title" 
+                        (CategorySelected)="handleCategorySelected($event)">
+                    </app-category-btn>
+                    <!-- <p>index: {{$index}} id: {{category.CategoryId}} title: {{category.Title}}</p> -->
+                }
+                <!-- <app-category-btn 
                     [CategoryId]="1" 
                     [CategoryName]="'test1'" 
                     (CategorySelected)="handleCategorySelected($event)">
-                </app-category-btn>
+                </app-category-btn> -->
+                <!-- <div class="navbarBtn categoryBtn">category1</div>
                 <div class="navbarBtn categoryBtn">category1</div>
                 <div class="navbarBtn categoryBtn">category1</div>
-                <div class="navbarBtn categoryBtn">category1</div>
-                <div class="navbarBtn categoryBtn">category1</div>
+                <div class="navbarBtn categoryBtn">category1</div> -->
             </div>
         </div>
     </div>
+    <!-- <div id="testCategories">
+        @for (category of (categories$ | async); track $index) {
+            <p>{{$index}}</p><br><p>{{category.CategoryId}}</p><br><p>{{category.Title}}</p>
+        }
+    </div> -->
     
 <!-- 
     <br>

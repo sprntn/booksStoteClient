@@ -1,0 +1,35 @@
+<form id="filterForm" class="filterElement">
+    <input class="formItem" type="text" placeholder="{{searchPlaceholder}}">
+    <select class="formItem" name="" id="authorSelect">
+        <option value="0" selected>All Authors</option>
+        @for(author of (authors$ | async); track $index ){
+            <option value="{{author.AuthorId}}">{{author.FirstName}}</option>
+        }
+    </select>
+    <select class="formItem" name="" id="categorySelect">
+        <option value="0" selected>All Categories</option>
+        @for (category of (categories$ | async); track $index) {
+            <option value="{{category.CategoryId}}">{{category.Title}}</option>
+        }
+    </select>
+</form>
+
+<div id="downloadBtn" class="filterElement">
+    Download Books
+</div>
+<!-- <br>
+<p style="width: 100%; color: #fff; background-color: #000; text-align: center; font-size: 1rem; height: 2rem;">test</p>
+<ul>
+    @for(author of (authors$ | async); track $index ){
+        <li>index: {{$index}} id:{{author.AuthorId}} name: {{author.FirstName}} {{author.LastName}} birtdate:{{author.BirthDate}}</li>
+    }
+</ul>
+<ul>
+    @for(category of (categories$ | async); track $index){
+        <li>index: {{$index}} id:{{category.CategoryId}} title: {{category.Title}}</li>
+    }
+</ul> -->
+
+<!-- <select id="categorySelect" formControlName="categorySelect">
+    <option *ngFor="let category of siteCategories$ | async" [ngValue]="category.categoryId">{{category.categoryName}}</option>
+</select> -->

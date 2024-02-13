@@ -1,9 +1,9 @@
 <header class="header">
   <!-- Your header content goes here -->
-  <!-- <h1>Your Fixed Header</h1> -->
-  <app-fixed-header></app-fixed-header>
+  <!-- <h1>Your Fixed Header</h1> -->(CategorySelected)="handleCategorySelected($event)"
+  <app-fixed-header (heightChanged)="handleHeightChange($event)"></app-fixed-header>
 </header>
-<main>
+<main [style.margin-top]="marginTop">
   <section>
     <router-outlet></router-outlet>
     <!-- <div class="test">

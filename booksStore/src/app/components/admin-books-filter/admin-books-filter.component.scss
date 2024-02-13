@@ -1,0 +1,33 @@
+#filterForm{
+    min-height: 3rem;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    input{
+        border-radius: .5rem;
+        outline: none;
+        background: transparent;
+        font-size: 1.2rem;
+    }
+
+    .formItem{
+        height: 2rem;
+        //background-color: bisque;
+    }
+}
+
+#downloadBtn{
+    height: 2rem;
+    font-size: 1.5rem;
+    color:  #fff;
+    text-align: center;
+}
+
+.filterElement{
+    background: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 5vw;
+}

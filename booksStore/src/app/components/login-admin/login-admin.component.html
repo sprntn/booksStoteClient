@@ -1,0 +1,23 @@
+<div class="container">
+    <form [formGroup]="loginForm">
+        <div class="row">
+            <input #emailInput id="email" type="text" formControlName="email" placeholder="email"
+                [class.hasError]="email?.invalid&&(email?.touched||email?.dirty)">
+            <div class="errorsMessages">
+                @if(email?.errors?.['required']&&(email?.touched||email?.dirty)){
+                    <p>email is required</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <input #passwordInput id="password" type="password" formControlName="password" placeholder="password"
+                [class.hasError]="password?.invalid&&(password?.touched||password?.dirty)">
+            <div class="errorsMessages">
+                @if(password?.errors?.['required']&&(password?.touched||password?.dirty)){
+                    <p>password is required</p>
+                }
+            </div>
+        </div>
+    </form>
+    <div id="submitDiv" class="adminBtn" (click)="submit()">login</div>
+</div>

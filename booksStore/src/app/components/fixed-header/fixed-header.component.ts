@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Observable, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Observable, Subscription, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { ModalsService } from '../../services/modals.service';
 import { LogoutIconComponent } from '../../icons/logout-icon/logout-icon.component';
 import { LoginIconComponent } from '../../icons/login-icon/login-icon.component';
@@ -17,6 +17,7 @@ import { CategoryBtnComponent } from "../category-btn/category-btn.component";
 import { ReloadBooksSubjectService } from '../../services/reload-books-subject.service';
 import { Category } from '../../models/category';
 //import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -35,10 +36,11 @@ import { Category } from '../../models/category';
         ShowMoreIconComponent,
         ShowLessIconComponent,
         CategoriesIconComponent,
-        CategoryBtnComponent
+        CategoryBtnComponent,
+        CommonModule
     ]
 })
-export class FixedHeaderComponent implements OnInit {
+export class FixedHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('formModal', { read: ViewContainerRef })
   entry!: ViewContainerRef;
@@ -53,18 +55,53 @@ export class FixedHeaderComponent implements OnInit {
   //message: string | undefined ;
   searchControl = new FormControl('');
 
+  // @ViewChild('headerElement', { static: true })
+  // headerElement!: ElementRef;
+  @ViewChild('headerElement') headerElement!: ElementRef;
+  @Output() heightChanged: EventEmitter<number> = new EventEmitter();
+
+  //height!:number;
+
   constructor(
     private modalsService: ModalsService, 
     private booksService: BooksService,
     private reloadBooksSubject: ReloadBooksSubjectService){}
   
-  ngOnInit(): void {
-    this.categories$ = this.booksService.getCategories();
-    this.searchControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged()
+  // ngAfterContentInit(): void {
+  //   console.log(this.headerElement);
+  //   const height = this.headerElement.nativeElement.offsetHeight;
+  //   console.log('header height ', height);
+  //   //this.heightChanged.emit(height);
+  //   //window.addEventListener('resize', () => this.heightChanged.emit(height));
+  // }
 
-    ).subscribe(v => console.log(v));
+  ngAfterViewInit(): void {
+    console.log(this.headerElement);
+    const height = this.headerElement.nativeElement.offsetHeight;
+    console.log('header height ', height);
+    this.heightChanged.emit(height);
+    //window.addEventListener('resize', () => this.heightChanged.emit(height));
+  }
+  
+  ngOnDestroy(): void {
+    console.log('on destroy!');
+    
+  }
+  // ngOnDestroy(): void {
+  //   window.removeEventListener('resize', this.updatePaddingHeight);
+  // }
+  
+  ngOnInit(): void {
+    console.log('initial categories');
+    this.categories$ = this.booksService.getCategories();
+
+    //this.categories$.subscribe(categories => console.log(categories));
+    
+    // this.searchControl.valueChanges.pipe(
+    //   debounceTime(300),
+    //   distinctUntilChanged()
+
+    // ).subscribe(v => console.log(v));
   }
 
   openSignupModal() {
@@ -118,6 +155,8 @@ export class FixedHeaderComponent implements OnInit {
   }
 
   handleCategorySelected(categoryId: number) {
+    console.log(`searching for ${categoryId} id category`);
+    
     //call books page to reload books
     //this.reloadBooksSubject.loginSubject$.next({});
     this.reloadBooksSubject.reloadSubject$.next({categoryId: categoryId, searchKey: ""});

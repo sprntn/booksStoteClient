@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthV1Service } from './auth-v1.service';
 import { Category } from '../models/category';
+import { Author } from '../models/author';
 
 //import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient, provideHttpClient } from '@nguniversal/common/http';
@@ -16,16 +17,20 @@ import { Category } from '../models/category';
 })
 export class BooksService {
   
-
   private apiURL = environment.baseUrl + 'Books/';
   //private httpClient : HttpClient
 
   constructor(private httpClient : HttpClient, private authService: AuthV1Service) { }
 
   getCategories(): Observable<Category[]> {
-    // return this.httpClient.get<Category[]>(`${this.apiURL}GetCategories`).
-    //   pipe(map((serverCategories) => serverCategories.map((category) => this.mapCategory(category))));
-    return this.httpClient.get<Category[]>(`${this.apiURL}GetCategories`);//שמות המשתנים זהים בשרת ובקליינט לכן לא צריך למפות
+    return this.httpClient.get<Category[]>(`${this.apiURL}GetCategories`).
+       pipe(map((serverCategories) => serverCategories.map((category) => this.mapCategory(category))));
+    //return this.httpClient.get<Category[]>(`${this.apiURL}GetCategories`);//שמות המשתנים זהים בשרת ובקליינט לכן לא צריך למפות
+  }
+
+  getAuthors(): Observable<import("../models/author").Author[]> {
+    return this.httpClient.get<Author[]>(`${this.apiURL}GetAuthors`).
+      pipe(map((serverAuthor) => serverAuthor.map((author) => this.mapAuthor(author))));
   }
   
   //getBooks(): Observable<Book[]>{
@@ -42,10 +47,12 @@ export class BooksService {
         'Authorization': `Bearer ${token}`
       });
 
-      return this.httpClient.get<Book[]>(`${this.apiURL}GetBooks/${categoryId}/${searchKey}`, { headers }).
+      return this.httpClient.get<Book[]>(`${this.apiURL}GetUserBooks/${categoryId}/${searchKey}`, { headers }).
+      //return this.httpClient.get<Book[]>(`${this.apiURL}GetUserBooks/${categoryId}/test`, { headers }).
         pipe(map((serverBooks) => serverBooks.map((book) => this.mapBook(book))));
     } catch (error) {
       return this.httpClient.get<Book[]>(`${this.apiURL}GetBooks/${categoryId}/${searchKey}`).
+      //return this.httpClient.get<Book[]>(`${this.apiURL}GetBooks/${categoryId}/test`).
         pipe(map((serverBooks) => serverBooks.map((book) => this.mapBook(book))));
     }
   }
@@ -68,6 +75,17 @@ export class BooksService {
       }))));
   }
 
+  mapAuthor(author: any): Author {
+    return {
+      AuthorId: author.authorId,
+      FirstName: author.firstName,
+      LastName: author.lastName,
+      BirthDate: author.birthDate,
+      CountryId: author.countryId,
+      Email: author.email
+    }
+  }
+
   private mapBook(serverBook: any): Book {
     return {
       Title: serverBook.title,
@@ -80,10 +98,10 @@ export class BooksService {
     };
   }
 
-  // private mapCategory(serverCategory: Category): Category {
-  //   return {
-  //     CategoryId: serverCategory.CategoryId,
-  //     Title: serverCategory.Title
-  //   };
-  // }
+  private mapCategory(serverCategory: any): Category {
+    return {
+      CategoryId: serverCategory.categoryId,
+      Title: serverCategory.title
+    };
+  }
 }
