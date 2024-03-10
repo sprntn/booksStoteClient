@@ -1,1 +1,29 @@
-<p>admin-book-card works!</p>
+<div class="adminBookCard">
+    <!-- <div class="absoluteDiv">test</div> -->
+    <div class="imgDesc">
+        <img #image src="{{imageUrl}}" alt="{{title}}">
+        <p #desc title="{{description}}">{{description}}</p>
+    </div>
+    <div #actions class="actions">
+        <!-- <p class="rating">rating</p>
+        select and add -->
+        <select (change)="onSelectionChange($event)">
+        <!-- <select [(ngModel)]="selectedCategory"> -->
+            <option value="0" selected>Select Category</option>
+            @for (category of serverCategories; track $index) {
+                <option value="{{category.CategoryId}}">{{category.Title}}</option>
+            }
+            @empty {
+                <option value="1">demo 1</option>
+                <option value="2">demo 2</option>
+                <option value="3">demo 3</option>
+                <option value="4">demo 4</option>
+                <option value="5">demo 5</option>
+                <option value="6">demo 6</option>
+            }
+        </select>
+        <div [class.disabled] = "selectedCategory == 0" id="addBtn" (click)="selectBook()">
+            add
+        </div>
+    </div>
+</div>

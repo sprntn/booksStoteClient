@@ -1,33 +1,78 @@
+:host {
+    //--custom-gradient: linear-gradient(to right, #ff8c00, #ffebcd);
+    --bg-gradient: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
+  }
+
 #filterForm{
+    margin-top: .1rem;
+    //background: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
+    background: var(--bg-gradient);
     min-height: 3rem;
-
     display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
     flex-wrap: wrap;
-
-    input{
-        border-radius: .5rem;
-        outline: none;
-        background: transparent;
-        font-size: 1.2rem;
-    }
+    //width: calc(90vw - 4rem);
+    width: calc(90% - 4rem);
+    //margin-left: 5vw;
+    margin-left: 5%;
+    //margin-right: 5vw;
+    margin-right: 5%;
+    padding: 2rem;
+    //color: #fff;
 
     .formItem{
+        flex: 0;
         height: 2rem;
-        //background-color: bisque;
+        box-sizing: border-box;
+        min-width: 10rem;
+        //background: transparent;;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: #fff;
+        outline: none;
     }
-}
 
-#downloadBtn{
-    height: 2rem;
-    font-size: 1.5rem;
-    color:  #fff;
-    text-align: center;
-}
+    .formItem:last-child{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.filterElement{
-    background: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
-    width: 90vw;
-    margin-left: 5vw;
-    margin-right: 5vw;
-    margin-top: 5vw;
+    // input{
+    //     outline: none;
+    // }
+
+    input::placeholder{
+        color: #fff;
+    }
+
+    
+        // ::-webkit-scrollbar {
+        //     display: none;
+        // }
+
+        // ::-webkit-scrollbar-track {
+        //     background-color: #f1f1f1;
+        //   }
+
+        // ::-webkit-scrollbar-thumb {
+        //     background-color: #888;
+        //     border-radius: 10px;
+        //   }
+    
+
+    option{
+        //background: #f33;
+        //background: var(--bg-gradient);
+        //background: linear-gradient(to right, rgb(83, 183, 200), rgb(36, 60, 120));
+        background: #333;
+        color: #fff;
+    }
+
+    #downloadBtn{
+        border: .1rem solid #fff;
+        cursor: pointer;
+    }    
 }

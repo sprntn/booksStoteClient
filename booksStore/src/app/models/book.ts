@@ -6,12 +6,15 @@ export class Book {
     Description!: string;
     ImgUrl!: string
     AuthorId?: number | null;
-    GenreId?: number | null;
+    Author?: string | null;
+    CategoryId?: number | null;
+    Category?: string | null;
     PublishDate?: Date | null;
-
-    // constructor(title: string, description: string, imgUrl: string){
-    //     this.Title = title;
-    //     this.Description = description;
-        
-    // }
+    AverageRating?: number | null;
+    
+    constructor(title: string, description: string, imgUrl: string){
+        this.Title = title;
+        this.Description = description;
+        this.ImgUrl = imgUrl;
+    }
 }

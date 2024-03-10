@@ -5,8 +5,29 @@
     @else {
         <div id="openAdminFilterBtn" class="adminBtn" (click)="toggleBooksFilter()">Close Filter</div>
         <!-- <form>filter form here</form> -->
-        <app-admin-books-filter></app-admin-books-filter>
+        <app-admin-books-filter 
+        [authors]="googleBooksAuthors"
+        [categories]="googleBooksCategories"
+        [countries]="countries"
+        (search)="handleSearch($event)"></app-admin-books-filter>
     }
+
+    <div class="booksCardsList">
+        @for (book of googleBooks; track $index) {
+            <app-admin-book-card 
+                [description]="book.Description"
+                [imageUrl]="book.ImgUrl"
+                [title]="book.Title"
+                [serverCategories]="categorires"
+                (onBookSelected)="addBook($event)">
+            </app-admin-book-card>
+        }
+        @empty {
+            <div id="emptyList">
+                <h3>No Book Downloaded</h3>
+            </div>
+        }
+    </div>
     
     <!-- <div id="DownloadBooksBtn" class="adminBtn" (click)="downloadBooks()">Download Books</div> -->
     <div id="uploadBooksBtn" class="adminBtn" (click)="uploadBooks()">Upload Books</div>

@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthV1Service } from './auth-v1.service';
 import { Category } from '../models/category';
 import { Author } from '../models/author';
+import { Country } from '../models/country';
 
 //import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient, provideHttpClient } from '@nguniversal/common/http';
@@ -21,6 +22,10 @@ export class BooksService {
   //private httpClient : HttpClient
 
   constructor(private httpClient : HttpClient, private authService: AuthV1Service) { }
+
+  getCountries(): Observable<import("../models/country").Country[]> {
+    return this.httpClient.get<Country[]>(`${this.apiURL}GetCountries`);
+  }
 
   getCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(`${this.apiURL}GetCategories`).
@@ -75,11 +80,12 @@ export class BooksService {
       }))));
   }
 
-  mapAuthor(author: any): Author {
+  private mapAuthor(author: any): Author {
     return {
       AuthorId: author.authorId,
-      FirstName: author.firstName,
-      LastName: author.lastName,
+      //FirstName: author.firstName,
+      //LastName: author.lastName,
+      FullName: author.fullName,
       BirthDate: author.birthDate,
       CountryId: author.countryId,
       Email: author.email
